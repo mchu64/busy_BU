@@ -1,4 +1,5 @@
 require('dotenv').config();
+const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose'); // Require Mongoose
 
@@ -7,6 +8,7 @@ const Facility = require('./models/facility.js');
 const Rating = require('./models/rating.js');
 
 const app = express();
+app.use(cors());
 
 // Middleware to parse JSON bodies
 app.use(express.json());
@@ -50,7 +52,17 @@ app.post('/api/ratings', (req, res) => {
     .then(rating => res.status(201).json(rating))
     .catch(err => res.status(400).json('Error: ' + err));
 });
-// More routes can be added here
+
+// GET Route for retrieving upstairs weigh room average rating
+app.get('/api/ratings/average/weight-room', async (req, res) => {
+  try {
+    const ratings = await Rating.find({ facility_id: '6599fa67d85aa7b7734fef3d' }); // weight room 1 (upstairs)
+    const average = ratings.reduce((acc, { rating }) => acc + rating, 0) / (ratings.length || 1);
+    res.json({ average: average.toFixed(2) }); // Send the average as a response
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching the average rating", error: error });
+  }
+});
 
 // Start the server after setting up MongoDB and routes
 const PORT = process.env.PORT || 3000;

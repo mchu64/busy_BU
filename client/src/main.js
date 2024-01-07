@@ -1,19 +1,18 @@
 import { createApp } from 'vue';
-import App from './components/App.vue';
-import AnotherPage from './components/AnotherPage.vue';
-import ThirdPage from './components/ThirdPage.vue';
-import FourthPage from './components/FourthPage.vue';
+import Index from './components/Index.vue';
+import Weightroom from './components/Weightroom.vue';
+import Survey from './components/Survey.vue';
+import Courts from './components/Courts.vue';
 import { createRouter, createWebHistory } from 'vue-router';
-import store from './store'; // Import the modular Vuex store
 import 'vue';
 
 
 
 // Define your routes
 const routes = [
-  { path: '/third-page', component: ThirdPage },
-  { path: '/another-page', component: AnotherPage },
-  { path: '/fourth-page', component: FourthPage },
+  { path: '/third-page', component: Survey },
+  { path: '/second-page', component: Weightroom },
+  { path: '/fourth-page', component: Courts },
 ];
 
 // Create the router instance
@@ -24,9 +23,8 @@ const router = createRouter({
 });
 
 // Create the Vue app
-const app = createApp(App)
+const app = createApp(Index)
 
-app.use(store);
 
 // Use the router with the app
 app.use(router);

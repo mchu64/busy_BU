@@ -1,0 +1,67 @@
+<template>
+  <div class="app flex-container" :class="{ isRootPage: isRootPage }" >
+    
+    <!-- Header Section -->
+    <div v-if="isRootPage" class="header">
+      <h1>Busy-BU</h1>
+      <h2>This is where you can find how busy the FitRec is!</h2>
+    </div>
+
+    <!-- Box Container Section -->
+    <div class="box-container">
+      <!-- Router Links -->
+      <router-link v-if="isRootPage" to="/second-page" class="gym-info-box">
+        <div>
+          <h1>Weight Room</h1>
+          <p>Welcome to the Weight room! Check out the facilities and enjoy your workout.</p>
+        </div>
+      </router-link>
+
+      <router-link v-if="isRootPage" to="/fourth-page" class="courts">
+        <div>
+          <h1>Courts</h1>
+          <p>Check the business on the courts of our BU Fitrec!</p>
+        </div>
+      </router-link>
+
+      <router-link v-if="isRootPage" to="/third-page" class="evaluate">
+        <div>
+          <h1>Rate our Facility</h1>
+          <p>Please give us a rating on the population of the gym!</p>
+        </div>
+      </router-link>
+    </div>
+    <div v-if="isRootPage" class="hours">
+      <h1>Hours of Operation</h1>
+        <li>Sunday: 8 AM-8 PM</li>
+        <li>Monday: 6 AM-8 PM</li>
+        <li>Tuesday: 6 AM-8 PM</li>
+        <li>Wedneday: 6 AM-8 PM</li>
+        <li>Thursday: 6 AM-8 PM</li>
+        <li>Friday: 6 AM-8 PM</li>
+        <li>Saturday: 8 AM-8 PM</li>
+    </div>
+  
+
+    <!-- Router Views -->
+    <router-view v-if="isRootPage"></router-view>
+    <router-view></router-view>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'App',
+  computed: {
+    isRootPage() {
+      return this.$route.path === '/';
+    },
+  },
+};
+</script>
+
+<!--CSS Link-->
+
+<style scoped>
+@import './Index.css';
+</style>
