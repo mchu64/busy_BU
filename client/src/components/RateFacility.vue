@@ -77,12 +77,13 @@ export default {
       };
 
       // axios to send a POST request
-      axios.post('/api/ratings', payload)
+      axios.post('http://localhost:3000/api/ratings', payload)
         .then(response => {
           // Handle the response from the server
           this.submitted = true;
           console.log(response.data);
           // Redirect or show a message
+          this.$router.push('/');
         })
         .catch(error => {
           // Handle any errors from the request
