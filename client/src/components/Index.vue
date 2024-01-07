@@ -31,16 +31,6 @@
         </div>
       </router-link>
     </div>
-    <div v-if="isRootPage" class="hours">
-      <h1>Hours of Operation</h1>
-        <li>Sunday: 8 AM-8 PM</li>
-        <li>Monday: 6 AM-8 PM</li>
-        <li>Tuesday: 6 AM-8 PM</li>
-        <li>Wedneday: 6 AM-8 PM</li>
-        <li>Thursday: 6 AM-8 PM</li>
-        <li>Friday: 6 AM-8 PM</li>
-        <li>Saturday: 8 AM-8 PM</li>
-    </div>
   
 
     <!-- Router Views -->

@@ -77,7 +77,7 @@ export default {
       };
 
       // axios to send a POST request
-      axios.post('/api/ratings', payload)
+      axios.post('http://localhost:3000/api/ratings', payload)
         .then(response => {
           // Handle the response from the server
           this.submitted = true;
@@ -97,6 +97,7 @@ export default {
     resetForm() {
       this.section = 'gym';
       this.rating = '1';
+      this.$router.push('/');
     },
   },
 };
