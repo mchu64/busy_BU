@@ -35,6 +35,21 @@ app.post('/api/facilities', (req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+app.post('/api/ratings', (req, res) => {
+  // Destructure the rating and facility_id from the request body
+  const { rating, facility_id } = req.body;
+
+  // Create a new rating with the rating and facility_id from the request
+  const newRating = new Rating({
+    rating: rating,
+    facility_id: facility_id
+  });
+
+  // Save the new rating to the database
+  newRating.save()
+    .then(rating => res.status(201).json(rating))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
 // More routes can be added here
 
 // Start the server after setting up MongoDB and routes
