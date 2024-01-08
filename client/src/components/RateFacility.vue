@@ -93,8 +93,6 @@ export default {
           this.submitted = true;
           console.log(response.data);
           // Redirect or show a message
-
-          this.$router.push('/');
         })
         .catch(error => {
           // Handle any errors from the request
@@ -109,6 +107,7 @@ export default {
     resetForm() {
       this.section = 'gym';
       this.rating = '1';
+      this.$router.push('/');
     },
   },
 };
