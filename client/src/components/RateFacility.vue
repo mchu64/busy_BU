@@ -11,12 +11,20 @@
       <label>
         Where are you currently?
         <div>
-          <input type="radio" id="gym" value="gym" v-model="section" />
-          <label for="gym">Weight room</label>
+          <input type="radio" id="upperWeightRoom" value="gym1" v-model="section" />
+          <label for="gym">Upper Weight room</label>
         </div>
         <div>
-          <input type="radio" id="courts" value="courts" v-model="section" />
-          <label for="courts">Courts</label>
+          <input type="radio" id="lowerWeightRoom" value="gym2" v-model="section" />
+          <label for="gym">Lower Weight room</label>
+        </div>
+        <div>
+          <input type="radio" id="Uppercourts" value="upper-courts" v-model="section" />
+          <label for="courts">Upper Courts</label>
+        </div>
+        <div>
+          <input type="radio" id="Lowercourts" value="lower-courts" v-model="section" />
+          <label for="courts">Lower Courts</label>
         </div>
       </label>
       <br />
@@ -67,8 +75,10 @@ export default {
     submitRating() {
       // Convert section to MongoDB ObjectId
       const facilityIdMap = {
-        'gym': '6599fa67d85aa7b7734fef3d',  // Replace with actual ObjectId
-        'courts': '659a0affc0d15d547c126925'  // Replace with actual ObjectId
+        'gym1': '6599fa67d85aa7b7734fef3d',
+        'gym2': '6599fa7dd85aa7b7734fef3f',  // Replace with actual ObjectId
+        'upper-courts': '659a0affc0d15d547c126925',  // Replace with actual ObjectId
+        'lower-courts': '659b382f10a04f1ccc8f2e6b',
       };
 
       const payload = {
@@ -77,12 +87,14 @@ export default {
       };
 
       // axios to send a POST request
-      axios.post('/api/ratings', payload)
+      axios.post('http://localhost:3000/api/ratings', payload)
         .then(response => {
           // Handle the response from the server
           this.submitted = true;
           console.log(response.data);
           // Redirect or show a message
+
+          this.$router.push('/');
         })
         .catch(error => {
           // Handle any errors from the request

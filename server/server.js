@@ -54,9 +54,42 @@ app.post('/api/ratings', (req, res) => {
 });
 
 // GET Route for retrieving upstairs weigh room average rating
-app.get('/api/ratings/average/weight-room', async (req, res) => {
+app.get('/api/ratings/average/weight-room1', async (req, res) => {
   try {
     const ratings = await Rating.find({ facility_id: '6599fa67d85aa7b7734fef3d' }); // weight room 1 (upstairs)
+    const average = ratings.reduce((acc, { rating }) => acc + rating, 0) / (ratings.length || 1);
+    res.json({ average: average.toFixed(2) }); // Send the average as a response
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching the average rating", error: error });
+  }
+});
+
+// GET Route for retrieving lower weigh room average rating
+app.get('/api/ratings/average/weight-room2', async (req, res) => {
+  try {
+    const ratings = await Rating.find({ facility_id: '6599fa7dd85aa7b7734fef3f' }); // weight room 2 (downstairs)
+    const average = ratings.reduce((acc, { rating }) => acc + rating, 0) / (ratings.length || 1);
+    res.json({ average: average.toFixed(2) }); // Send the average as a response
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching the average rating", error: error });
+  }
+});
+
+// GET Route for retrieving lower weigh room average rating
+app.get('/api/ratings/average/upper-courts', async (req, res) => {
+  try {
+    const ratings = await Rating.find({ facility_id: '659a0affc0d15d547c126925' }); // weight room 2 (downstairs)
+    const average = ratings.reduce((acc, { rating }) => acc + rating, 0) / (ratings.length || 1);
+    res.json({ average: average.toFixed(2) }); // Send the average as a response
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching the average rating", error: error });
+  }
+});
+
+// GET Route for retrieving lower weigh room average rating
+app.get('/api/ratings/average/lower-courts', async (req, res) => {
+  try {
+    const ratings = await Rating.find({ facility_id: '659b382f10a04f1ccc8f2e6b' }); // weight room 2 (downstairs)
     const average = ratings.reduce((acc, { rating }) => acc + rating, 0) / (ratings.length || 1);
     res.json({ average: average.toFixed(2) }); // Send the average as a response
   } catch (error) {

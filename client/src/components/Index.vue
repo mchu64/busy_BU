@@ -12,14 +12,31 @@
       <!-- Router Links -->
       <router-link v-if="isRootPage" to="/second-page" class="gym-info-box">
         <div>
-          <h1>Weight Room</h1>
+          <h1>Upper Weight Room</h1>
           <p>Welcome to the Weight room! Check out the facilities and enjoy your workout.</p>
         </div>
       </router-link>
 
+      
+      <!-- Router Links -->
+      <router-link v-if="isRootPage" to="/fifth-page" class="gym-info-box">
+        <div>
+          <h1>Lower Weight Room</h1>
+          <p>Welcome to the Weight room! Check out the facilities and enjoy your workout.</p>
+        </div>
+      </router-link>
+
+
       <router-link v-if="isRootPage" to="/fourth-page" class="courts">
         <div>
-          <h1>Courts</h1>
+          <h1>Upper Courts</h1>
+          <p>Check the business on the courts of our BU Fitrec!</p>
+        </div>
+      </router-link>
+
+      <router-link v-if="isRootPage" to="/sixth-page" class="courts">
+        <div>
+          <h1>Lower Courts</h1>
           <p>Check the business on the courts of our BU Fitrec!</p>
         </div>
       </router-link>
