@@ -20,7 +20,7 @@
     background-image: url('https://upload.wikimedia.org/wikipedia/commons/3/33/BU_Fitrec.jpg');
     background-size: cover;
     background-position: center;
-    filter: blur(10px); 
+    filter: blur(3px);
     z-index: -1;
   }
   
