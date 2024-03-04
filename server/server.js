@@ -169,8 +169,8 @@ app.listen(PORT, () => {
 });
 
 // Properly close the Mongoose connection when the app stops
+
 process.on('SIGINT', async () => {
   await mongoose.connection.close();
-  process.exit();
+  
 });
-
