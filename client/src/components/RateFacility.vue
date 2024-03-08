@@ -87,7 +87,7 @@ export default {
       };
 
       // axios to send a POST request
-      axios.post('http://localhost:3000/api/ratings', payload)
+      axios.post('http://enigmatic-bastion-78775-506d46995f63.herokuapp.com/api/ratings', payload)
         .then(response => {
           // Handle the response from the server
           this.submitted = true;
