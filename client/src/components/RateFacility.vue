@@ -2,8 +2,8 @@
   <div>
     <div class="ratefacilitybackground"></div>
     <div class="header" v-if = "isThirdPage">
-      <h1>Courts</h1>
-      <h2>Below is how busy the courts are.</h2>
+      <h1>Ratings</h1>
+      <h2>Below is where you can rate the facility</h2>
     </div>
   
     <div class="content" v-if="!submitted">
@@ -87,7 +87,7 @@ export default {
       };
 
       // axios to send a POST request
-      axios.post('http://localhost:3000/api/ratings', payload)
+      axios.post('enigmatic-bastion-78775-506d4/api/ratings', payload)
         .then(response => {
           // Handle the response from the server
           this.submitted = true;
