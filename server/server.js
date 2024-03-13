@@ -8,14 +8,8 @@ const Facility = require('./models/facility.js');
 const Rating = require('./models/rating.js');
 
 const app = express();
-const corsOptions =
-{
-  origin: 'https://bu-busy.web.app/',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-};
 
-app.use(cors(corsOptions));
+app.use(cors);
 
 
 
