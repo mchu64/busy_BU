@@ -10,7 +10,7 @@ const Rating = require('./models/rating.js');
 const app = express();
 const corsOptions =
 {
-  origin: '*',
+  origin: 'https://bu-busy.web.app/Weightroom1',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
 };
