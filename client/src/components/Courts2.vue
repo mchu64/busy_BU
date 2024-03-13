@@ -34,7 +34,7 @@
   },
     methods: {
     fetchAverageRating() {
-      axios.get('http://localhost:3000/api/ratings/average/lower-courts')
+      axios.get('https://enigmatic-bastion-78775-506d46995f63.herokuapp.com/api/ratings/average/lower-courts')
         .then(response => {
           console.log('Average rating response:', response.data); // Debugging line
           this.averageRating = response.data.average;
