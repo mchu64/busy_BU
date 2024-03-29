@@ -38,15 +38,17 @@ export default {
   },
   methods: {
     fetchAverageRating() {
-      axios.get('https://enigmatic-bastion-78775-506d46995f63.herokuapp.com/api/ratings/average/weight-room1')
-        .then(response => {
-          console.log('Average rating response:', response.data); // Debugging line
-          this.averageRating = response.data.average;
-        })
-        .catch(error => {
-          console.error('Error fetching the average rating:', error);
-        });
-    },
+  axios.get('https://enigmatic-bastion-78775-506d46995f63.herokuapp.com/api/ratings/average/weight-room1', {
+    timeout: 5000
+  })
+    .then(response => {
+        console.log('Average rating response:', response.data); // Debugging line
+        this.averageRating = response.data.average;
+      })
+      .catch(error => {
+        console.error('Error fetching the average rating:', error);
+      });
+},
   },
 };
 </script>
