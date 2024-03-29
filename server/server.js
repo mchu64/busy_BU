@@ -10,8 +10,10 @@ const Rating = require('./models/rating.js');
 const app = express();
 const corsOptions =
 {
-  origin: 'https://bu-busy.web.app/',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  origin: 'https://bu-busy.web.app',
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 200, 
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
 };
 
