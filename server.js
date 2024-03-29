@@ -4,8 +4,8 @@ const express = require('express');
 const mongoose = require('mongoose'); // Require Mongoose
 const cron = require('node-cron');
 // Import your Mongoose models
-const Facility = require('./models/facility.js');
-const Rating = require('./models/rating.js');
+const Facility = require('./server/models/facility.js');
+const Rating = require('./server/models/rating.js');
 
 const app = express();
 const corsOptions =
