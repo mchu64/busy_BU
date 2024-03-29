@@ -77,36 +77,35 @@ const calculateAveragerating = async (facilityId, res) =>
 
 let lastResetTime = new Date();
 
-/*const updateAndResetAverageRating = async (facilityId, res) => {
-  try {
-    const currentDate = new Date();
-    const startOfHour = new Date(currentDate);
-    startOfHour.setMinutes(0, 0, 0);
+async function updateAndResetAverageRating () {
+  console.log('Updating average ratings...');
+  // Example: Calculate averages for a specific facility. Repeat for each facility as needed.
+  const facilityId = '6599fa67d85aa7b7734fef3d'; // Example facility ID
+  const thirtyMinutesAgo = new Date(new Date() - 30 * 60000);
 
-    // Find ratings within the last hour
+  try {
     const ratings = await Rating.find({
       facility_id: facilityId,
-      createdAt: { $gte: startOfHour },
+      createdAt: { $gte: thirtyMinutesAgo }
     });
 
-    // Calculate the average rating
-    const average = (ratings.reduce((acc, { rating }) => acc + rating, 0) / (ratings.length || 1)).toFixed(2);
-
-    // Send the response only if it hasn't been sent already
-    if (!res.headersSent) {
-      res.json({ average: average });
+    if (ratings.length > 0) {
+      const average = ratings.reduce((acc, { rating }) => acc + rating, 0) / ratings.length;
+      console.log(`New average for facility ${facilityId}: ${average.toFixed(2)}`);
+      // Here, you could also update the facility document or a separate averages document in your database
     } else {
-      console.log('Response headers already sent');  // Log a message (optional)
+      console.log(`No new ratings for facility ${facilityId} in the last 30 minutes.`);
     }
   } catch (error) {
-    res.status(500).json({ message: "Error fetching the average rating", error: error });
+    console.error('Error updating average ratings:', error);
   }
-};*/
+};
 
 
 
 // GET Route for retrieving upstairs weigh room average rating
 app.get('/api/ratings/average/weight-room1', async (req, res) => {
+  
   try {
     const ratings = await Rating.find({ facility_id: '6599fa67d85aa7b7734fef3d' }); // weight room 1 (upstairs)
     const average = ratings.reduce((acc, { rating }) => acc + rating, 0) / (ratings.length || 1);
@@ -156,7 +155,7 @@ app.get('/api/ratings/average/lower-courts', async (req, res) => {
 });
 
 
-cron.schedule('*/1 * * * *', async () => {
+cron.schedule('* * * * *', async () => {
 
   console.log('Cron job is running!');
   await updateAndResetAverageRating('6599fa67d85aa7b7734fef3d', res); // Facility ID for weight room 1 (upstairs)
