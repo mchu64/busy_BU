@@ -90,7 +90,7 @@ async function updateAndResetAverageRating () {
     });
 
     if (ratings.length > 0) {
-      const average = ratings.reduce((acc, { rating }) => acc + rating, 0) / ratings.length;
+      const average = 1;
       console.log(`New average for facility ${facilityId}: ${average.toFixed(2)}`);
       // Here, you could also update the facility document or a separate averages document in your database
     } else {
