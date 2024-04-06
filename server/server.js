@@ -25,7 +25,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // MongoDB connection setup with Mongoose
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_URI);
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', function() {
@@ -64,108 +64,104 @@ app.post('/api/ratings', (req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-const calculateAveragerating = async (facilityId, res) =>
-{
+const updateAndResetAverageRating = async (facilityId) => {
+  console.log(`updateAndResetAverageRating called for facilityId: ${facilityId}`);
   try {
-    const ratings = await Rating.find({ facility_id: facilityId }); // weight room 1 (upstairs)
-    const average = ratings.reduce((acc, { rating }) => acc + rating, 0) / (ratings.length || 1);
-    res.json({ average: average.toFixed(2) }); // Send the average as a response
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching the average rating", error: error });
-  }
-};
+    const currentDate = new Date();
+    console.log(`Current Date: ${currentDate}`);
 
-let lastResetTime = new Date();
+    // Determine the current half-hour interval
+    const currentMinutes = currentDate.getMinutes();
+    const isPastHalfHour = currentMinutes >= 30;
+    const startOfInterval = new Date(currentDate);
+    if (isPastHalfHour) {
+      // If it's past the half-hour mark, set minutes to 30
+      startOfInterval.setMinutes(30, 0, 0);
+    } else {
+      // Otherwise, set minutes to 0
+      startOfInterval.setMinutes(0, 0, 0);
+    }
 
-async function updateAndResetAverageRating () {
-  console.log('Updating average ratings...');
-  // Example: Calculate averages for a specific facility. Repeat for each facility as needed.
-  const facilityId = '6599fa67d85aa7b7734fef3d'; // Example facility ID
-  const thirtyMinutesAgo = new Date(new Date() - 30 * 60000);
+    console.log(`Start of Interval: ${startOfInterval}`);
 
-  try {
     const ratings = await Rating.find({
       facility_id: facilityId,
-      createdAt: { $gte: thirtyMinutesAgo }
+      createdAt: { $gte: startOfInterval },
     });
+    console.log(`Found ${ratings.length} ratings for facilityId: ${facilityId}`);
 
+    let average = 1;
     if (ratings.length > 0) {
-      const average = 1;
-      console.log(`New average for facility ${facilityId}: ${average.toFixed(2)}`);
-      // Here, you could also update the facility document or a separate averages document in your database
-    } else {
-      console.log(`No new ratings for facility ${facilityId} in the last 30 minutes.`);
+      average = ratings.reduce((acc, { rating }) => acc + rating, 0) / ratings.length;
     }
+    console.log(`Calculated average: ${average}`);
+
+    return average.toFixed(2);
   } catch (error) {
-    console.error('Error updating average ratings:', error);
+    console.error("Error in updateAndResetAverageRating:", error);
+    throw new Error("Error fetching the average rating");
   }
 };
 
-
-
-// GET Route for retrieving upstairs weigh room average rating
 app.get('/api/ratings/average/weight-room1', async (req, res) => {
-  
   try {
-    const ratings = await Rating.find({ facility_id: '6599fa67d85aa7b7734fef3d' }); // weight room 1 (upstairs)
-    const average = ratings.reduce((acc, { rating }) => acc + rating, 0) / (ratings.length || 1);
-    res.json({ average: average.toFixed(2) }); // Send the average as a response
+    console.log("Fetching average rating for weight-room1");
+    const average = await updateAndResetAverageRating('6599fa67d85aa7b7734fef3d');
+    console.log(`Average rating for weight-room1: ${average}`);
+    res.json({ average });
   } catch (error) {
-    res.status(500).json({ message: "Error fetching the average rating", error: error });
+    console.error("Error fetching the average rating for weight-room1:", error);
+    res.status(500).json({ message: "Error fetching the average rating", error: error.toString() });
   }
 });
 
-// GET Route for retrieving lower weigh room average rating
 app.get('/api/ratings/average/weight-room2', async (req, res) => {
   try {
-    const ratings = await Rating.find({ facility_id: '6599fa7dd85aa7b7734fef3f' }); // weight room 1 (upstairs)
-    const average = ratings.reduce((acc, { rating }) => acc + rating, 0) / (ratings.length || 1);
-    res.json({ average: average.toFixed(2) });
-    // Send the average as a response
+    console.log("Fetching average rating for weight-room2");
+    const average = await updateAndResetAverageRating('6599fa7dd85aa7b7734fef3f');
+    console.log(`Average rating for weight-room2: ${average}`);
+    res.json({ average });
   } catch (error) {
-    res.status(500).json({ message: "Error fetching the average rating", error: error });
+    console.error("Error fetching the average rating for weight-room2:", error);
+    res.status(500).json({ message: "Error fetching the average rating", error: error.toString() });
   }
 });
 
-// GET Route for retrieving lower weigh room average rating
 app.get('/api/ratings/average/upper-courts', async (req, res) => {
   try {
-    const ratings = await Rating.find({ facility_id: '659a0affc0d15d547c126925' }); // weight room 1 (upstairs)
-    const average = ratings.reduce((acc, { rating }) => acc + rating, 0) / (ratings.length || 1);
-    res.json({ average: average.toFixed(2) });
-
-     // Send the average as a response
+    console.log("Fetching average rating for upper-courts");
+    const average = await updateAndResetAverageRating('659a0affc0d15d547c126925');
+    console.log(`Average rating for upper-courts: ${average}`);
+    res.json({ average });
   } catch (error) {
-    res.status(500).json({ message: "Error fetching the average rating", error: error });
+    console.error("Error fetching the average rating for upper-courts:", error);
+    res.status(500).json({ message: "Error fetching the average rating", error: error.toString() });
   }
 });
 
-// GET Route for retrieving lower weigh room average rating
 app.get('/api/ratings/average/lower-courts', async (req, res) => {
   try {
-
-    const ratings = await Rating.find({ facility_id: '659b382f10a04f1ccc8f2e6b' }); // weight room 1 (upstairs)
-    const average = ratings.reduce((acc, { rating }) => acc + rating, 0) / (ratings.length || 1);
-    res.json({ average: average.toFixed(2) });
-
-     // Send the average as a response
+    console.log("Fetching average rating for lower-courts");
+    const average = await updateAndResetAverageRating('659b382f10a04f1ccc8f2e6b');
+    console.log(`Average rating for lower-courts: ${average}`);
+    res.json({ average });
   } catch (error) {
-    res.status(500).json({ message: "Error fetching the average rating", error: error });
+    console.error("Error fetching the average rating for lower-courts:", error);
+    res.status(500).json({ message: "Error fetching the average rating", error: error.toString() });
   }
 });
 
+/*cron.schedule('* * * * *', async () => {
 
-cron.schedule('* * * * *', async () => {
-
-  console.log('Cron job is running!');
-  await updateAndResetAverageRating('6599fa67d85aa7b7734fef3d', res); // Facility ID for weight room 1 (upstairs)
-  await updateAndResetAverageRating('6599fa7dd85aa7b7734fef3f', res); // Facility ID for weight room 2 (downstairs)
-  await updateAndResetAverageRating('659a0affc0d15d547c126925', res); // Facility ID for upper courts
-  await updateAndResetAverageRating('659b382f10a04f1ccc8f2e6b', res); // Facility ID for lower courts
+  console.log('Cron job is running every minute!');
+  await updateAndResetAverageRating('6599fa67d85aa7b7734fef3d'); // Facility ID for weight room 1 (upstairs)
+  await updateAndResetAverageRating('6599fa7dd85aa7b7734fef3f'); // Facility ID for weight room 2 (downstairs)
+  await updateAndResetAverageRating('659a0affc0d15d547c126925'); // Facility ID for upper courts
+  await updateAndResetAverageRating('659b382f10a04f1ccc8f2e6b'); // Facility ID for lower courts
 }, {
   scheduled: true,
   timezone: "America/New_York", // Adjust the timezone as needed
-});
+});*/
 
 // Start the server after setting up MongoDB and routes
 const PORT = process.env.PORT || 3000;
@@ -174,8 +170,7 @@ app.listen(PORT, () => {
 });
 
 // Properly close the Mongoose connection when the app stops
-
 process.on('SIGINT', async () => {
   await mongoose.connection.close();
-  
+  process.exit();
 });
