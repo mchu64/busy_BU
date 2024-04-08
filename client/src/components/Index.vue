@@ -5,15 +5,25 @@
     <div v-if="isRootPage" class="header">
       <h1>Busy-BU(BETA)</h1>
       <h2>This is where you can find how busy the FitRec is!</h2>
+      <h2> <a href="https://docs.google.com/forms/d/e/1FAIpQLSfC59OBcIGHbxW38LdatOmalNIOiOT91RZl4vipeeygkDEQ3A/viewform" style = "color: lightblue;" target = "_blank">Give us feedback on the site</a></h2>
     </div>
 
     <!-- Box Container Section -->
     <div class="box-container">
       <!-- Router Links -->
+
+      <router-link v-if="isRootPage" to="/third-page" class="evaluate">
+        <div>
+          <h1>Rate Busyness</h1>
+          <p>Please give us a rating on the population of the gym!</p>
+        </div>
+      </router-link>
+
+
       <router-link v-if="isRootPage" to="/second-page" class="gym-info-box">
         <div>
           <h1>Upper Weight Room</h1>
-          <p>Welcome to the Weight room! Check out the facilities and enjoy your workout.</p>
+          <p>This is how you can check the busyness of the upper weight room!</p>
         </div>
       </router-link>
 
@@ -22,7 +32,7 @@
       <router-link v-if="isRootPage" to="/fifth-page" class="gym-info-box">
         <div>
           <h1>Lower Weight Room</h1>
-          <p>Welcome to the Weight room! Check out the facilities and enjoy your workout.</p>
+          <p>This is how you can check the busyness of the bottom weight room!</p>
         </div>
       </router-link>
 
@@ -30,21 +40,14 @@
       <router-link v-if="isRootPage" to="/fourth-page" class="courts">
         <div>
           <h1>Upper Courts</h1>
-          <p>Check the business on the courts of our BU Fitrec!</p>
+          <p>This is how you can check the busyness of the upper courts!</p>
         </div>
       </router-link>
 
       <router-link v-if="isRootPage" to="/sixth-page" class="courts">
         <div>
           <h1>Lower Courts</h1>
-          <p>Check the business on the courts of our BU Fitrec!</p>
-        </div>
-      </router-link>
-
-      <router-link v-if="isRootPage" to="/third-page" class="evaluate">
-        <div>
-          <h1>Rate our Facility</h1>
-          <p>Please give us a rating on the population of the gym!</p>
+          <p>This is how you can check the busyness of the lower courts!</p>
         </div>
       </router-link>
     </div>

@@ -2,6 +2,7 @@ body, html {
     margin: 0;
     padding: 0;
     height: 100%;
+    margin-bottom: 20px;
   }
   
   .weightroombackground {
@@ -60,4 +61,16 @@ body, html {
     color: #ffffff;
     padding: 20px;
     text-align: center;
+  }
+  
+  .legend-box {
+    border: 1px solid #ccc;
+    background-color: rgba(12, 12, 12, 0.4);
+    text-align: center;
+    color: #fff;
+    max-width: 300px; /* Set a max-width to limit the width if needed */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    margin-top: 20px;
   }
