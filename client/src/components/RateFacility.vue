@@ -7,7 +7,7 @@
     </div>
   
     <div class="content" v-if="!submitted">
-      <h2 v-if="!submitted" class="" >Rate Our Facility</h2>
+      <h2 v-if="!submitted" class="" >Score the Busyness</h2>
       <label>
         Where are you currently?
         <div>
@@ -32,7 +32,7 @@
         What would you rate it 1-5?
         <div>
           <input type="radio" id="rating1" value="1" v-model="rating" />
-          <label for="rating1">1</label>
+          <label for="rating1">1 - Not busy</label>
         </div>
         <div>
           <input type="radio" id="rating2" value="2" v-model="rating" />
@@ -48,7 +48,7 @@
         </div>
         <div>
           <input type="radio" id="rating5" value="5" v-model="rating" />
-          <label for="rating5">5</label>
+          <label for="rating5">5 - Very Busy</label>
         </div>
       </label>
       <br />
