@@ -1,0 +1,20 @@
+const firebaseConfig = {
+  apiKey: "AIzaSyDNCBiGV-15kBYFYhBPnsg567h8p6cqSl8",
+  authDomain: "bu-busy.firebaseapp.com",
+  projectId: "bu-busy",
+  storageBucket: "bu-busy.appspot.com",
+  messagingSenderId: "548730044136",
+  appId: "1:548730044136:web:2c7ccc6992585a1900935d",
+  measurementId: "G-RF2FP0E88B"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+// Update the API endpoint to point to your Heroku backend
+const apiEndpoint = 'https://enigmatic-bastion-78775-506d46995f63.herokuapp.com';
+
+// Use the API endpoint in your requests
+fetch(`${apiEndpoint}/api/ratings`)
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));

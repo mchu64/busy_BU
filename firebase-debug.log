@@ -1,0 +1,21 @@
+[debug] [2024-02-22T21:11:22.184Z] ----------------------------------------------------------------------
+[debug] [2024-02-22T21:11:22.189Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\awesm\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-02-22T21:11:22.190Z] CLI Version:   13.3.1
+[debug] [2024-02-22T21:11:22.190Z] Platform:      win32
+[debug] [2024-02-22T21:11:22.190Z] Node Version:  v20.10.0
+[debug] [2024-02-22T21:11:22.191Z] Time:          Thu Feb 22 2024 16:11:22 GMT-0500 (Eastern Standard Time)
+[debug] [2024-02-22T21:11:22.191Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-02-22T21:11:22.201Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-02-22T21:11:22.202Z] > authorizing via signed-in user (tadzinyongo@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\awesm\Documents\GitHub\Bu-busy\client
+
