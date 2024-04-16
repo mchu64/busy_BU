@@ -1,9 +1,8 @@
 require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
-const mongoose = require('mongoose'); // Require Mongoose
+const mongoose = require('mongoose'); 
 const cron = require('node-cron');
-// Import your Mongoose models
 const Facility = require('./models/facility.js');
 const Rating = require('./models/rating.js');
 
