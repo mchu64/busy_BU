@@ -3,9 +3,9 @@
     
     <!-- Header Section -->
     <div v-if="isRootPage" class="header">
-      <h1>Busy-BU(BETA)</h1>
+      <h1>Busy BU</h1>
       <h2>This is where you can find how busy the FitRec is!</h2>
-      <h2> <a href="https://docs.google.com/forms/d/e/1FAIpQLSfC59OBcIGHbxW38LdatOmalNIOiOT91RZl4vipeeygkDEQ3A/viewform" style = "color: lightblue;" target = "_blank">Give us feedback on the site</a></h2>
+      <h2> <a style = "color: lightblue;" target = "_blank">Find out if you should go to the gym today!</a></h2>
     </div>
 
     <!-- Box Container Section -->
@@ -33,21 +33,6 @@
         <div>
           <h1>Lower Weight Room</h1>
           <p>This is how you can check the busyness of the bottom weight room!</p>
-        </div>
-      </router-link>
-
-
-      <router-link v-if="isRootPage" to="/fourth-page" class="courts">
-        <div>
-          <h1>Upper Courts</h1>
-          <p>This is how you can check the busyness of the upper courts!</p>
-        </div>
-      </router-link>
-
-      <router-link v-if="isRootPage" to="/sixth-page" class="courts">
-        <div>
-          <h1>Lower Courts</h1>
-          <p>This is how you can check the busyness of the lower courts!</p>
         </div>
       </router-link>
     </div>
