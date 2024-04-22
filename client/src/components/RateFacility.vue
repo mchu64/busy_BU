@@ -1,30 +1,22 @@
 <template>
   <div>
     <div class="ratefacilitybackground"></div>
-    <div class="header" v-if = "isThirdPage">
+    <div class="header" v-if="isThirdPage">
       <h1>Ratings</h1>
       <h2>Below is where you can rate the facility</h2>
     </div>
   
     <div class="content" v-if="!submitted">
-      <h2 v-if="!submitted" class="" >Score the Busyness</h2>
+      <h2>Score the Busyness</h2>
       <label>
         Where are you currently?
         <div>
           <input type="radio" id="upperWeightRoom" value="gym1" v-model="section" />
-          <label for="gym">Upper Weight room</label>
+          <label for="upperWeightRoom">Upper Weight room</label>
         </div>
         <div>
           <input type="radio" id="lowerWeightRoom" value="gym2" v-model="section" />
-          <label for="gym">Lower Weight room</label>
-        </div>
-        <div>
-          <input type="radio" id="Uppercourts" value="upper-courts" v-model="section" />
-          <label for="courts">Upper Courts</label>
-        </div>
-        <div>
-          <input type="radio" id="Lowercourts" value="lower-courts" v-model="section" />
-          <label for="courts">Lower Courts</label>
+          <label for="lowerWeightRoom">Lower Weight room</label>
         </div>
       </label>
       <br />
@@ -54,8 +46,9 @@
       <br />
       <button @click="submitRating">Submit</button>
     </div>
-        <div class="content" v-if="submitted">
-          <p>Thank you for submitting!</p>
+
+    <div class="content" v-if="submitted">
+      <p>Thank you for submitting!</p>
     </div>
   </div>
 </template>
@@ -66,19 +59,21 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      section: 'gym',
+      section: 'gym1',  // Default to 'gym1' for initial value
       rating: '1',
       submitted: false,
     };
   },
+  computed: {
+    isThirdPage() {
+      return this.$route.path === '/third-page';
+    },
+  },
   methods: {
     submitRating() {
-      // Convert section to MongoDB ObjectId
       const facilityIdMap = {
         'gym1': '6599fa67d85aa7b7734fef3d',
-        'gym2': '6599fa7dd85aa7b7734fef3f',  // Replace with actual ObjectId
-        'upper-courts': '659a0affc0d15d547c126925',  // Replace with actual ObjectId
-        'lower-courts': '659b382f10a04f1ccc8f2e6b',
+        'gym2': '6599fa7dd85aa7b7734fef3f'
       };
 
       const payload = {
@@ -86,26 +81,19 @@ export default {
         rating: parseInt(this.rating),
       };
 
-      // axios to send a POST request
       axios.post('https://enigmatic-bastion-78775-506d46995f63.herokuapp.com/api/ratings', payload)
         .then(response => {
-          // Handle the response from the server
           this.submitted = true;
           console.log(response.data);
-          // Redirect or show a message
         })
         .catch(error => {
-          // Handle any errors from the request
           console.error('Error:', error);
         });
 
       this.resetForm();
     },
-    isThirdPage() {
-      return this.$route.path === '/third-page';
-    },
     resetForm() {
-      this.section = 'gym';
+      this.section = 'gym1';
       this.rating = '1';
       this.$router.push('/');
     },
@@ -113,9 +101,6 @@ export default {
 };
 </script>
 
-<!--CSS Link-->
 <style scoped>
-
 @import './RateFacility.css';
-
 </style>
