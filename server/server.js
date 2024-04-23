@@ -5,22 +5,18 @@ const mongoose = require('mongoose');
 const cron = require('node-cron');
 const Facility = require('./models/facility.js');
 const Rating = require('./models/rating.js');
+const getWeather = require('./weather.js');
 
 const app = express();
-const corsOptions =
-{
-  origin: 'https://bu-busy.web.app',
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  optionsSuccessStatus: 200, 
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+const corsOptions = {
+  origin: ['https://bu-busy.web.app', 'http://localhost:8080'],
   credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  optionsSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
-
-
-
-// Middleware to parse JSON bodies
 app.use(express.json());
 
 // MongoDB connection setup with Mongoose
@@ -31,12 +27,21 @@ db.once('open', function() {
   console.log("Connected to MongoDB Atlas via Mongoose");
 });
 
-// Example of a route
 app.get('/', (req, res) => {
   res.send('Gym Occupancy Tracker Home');
 });
 
-// POST Route for creating new facility in the facilities collection
+app.get('/weather', async (req, res) => {
+  try {
+    const weatherData = await getWeather();
+    res.json(weatherData);
+  } catch (error) {
+    console.error("Error fetching weather data:", error);
+    res.status(500).json({ message: "Error fetching weather data" });
+  }
+});
+
+
 app.post('/api/facilities', (req, res) => {
   const newFacility = new Facility({
     facility_name: req.body.facility_name,
