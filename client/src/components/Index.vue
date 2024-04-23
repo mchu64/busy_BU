@@ -19,7 +19,6 @@
         </div>
       </router-link>
 
-
       <router-link v-if="isRootPage" to="/second-page" class="gym-info-box">
         <div>
           <h1>Upper Weight Room</h1>
@@ -37,6 +36,16 @@
       </router-link>
     </div>
   
+    <!-- Weather Box Section -->
+    <div class="gym-info-box" id="weather-container">
+      <div v-if="weather.temperature !== null" class="weather-box">
+        <p>Temperature: {{ Math.round(weather.temperature) }}°F</p>
+        <p>Precipitation: {{ weather.precipitation }}</p>
+      </div>
+      <div v-else>
+        <p>Loading weather data...</p>
+      </div>
+    </div>
 
     <!-- Router Views -->
     <router-view v-if="isRootPage"></router-view>
@@ -45,12 +54,33 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'App',
+  data() {
+    return {
+      weather: {
+        temperature: null,
+        precipitation: null
+      }
+    };
+  },
   computed: {
     isRootPage() {
       return this.$route.path === '/';
     },
+  },
+  mounted() {
+    axios.get('http://localhost:3000/weather')
+      .then(response => {
+        console.log("Weather data received:", response.data);
+        this.weather = response.data;
+      })
+      .catch(error => {
+        console.error("Error fetching weather data:", error);
+        this.weather = { temperature: "N/A", precipitation: "N/A" }; // Set default values
+      });
   },
 };
 </script>
@@ -59,4 +89,6 @@ export default {
 
 <style scoped>
 @import './Index.css';
+
+
 </style>

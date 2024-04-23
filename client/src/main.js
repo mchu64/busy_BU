@@ -4,11 +4,8 @@ import Weightroom1 from './components/Weightroom1.vue';
 import Weightroom2 from './components/Weightroom2.vue';
 import Survey from './components/Survey.vue';
 import { createRouter, createWebHistory } from 'vue-router';
-import 'vue';
 
 
-
-// Define your routes
 const routes = [
   { path: '/second-page', component: Weightroom1 },
   { path: '/third-page', component: Survey },
@@ -19,12 +16,10 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
-  //transition: false,
 });
 
 // Create the Vue app
 const app = createApp(Index)
-
 
 // Use the router with the app
 app.use(router);

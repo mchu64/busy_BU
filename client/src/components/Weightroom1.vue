@@ -3,7 +3,6 @@
     <div v-if="isSecondPage" class="header">
       <h1>Weight Room</h1>
       <h2>Below is how busy the weight rooms are.</h2>
-      <h2> <a href="https://docs.google.com/forms/d/e/1FAIpQLSfC59OBcIGHbxW38LdatOmalNIOiOT91RZl4vipeeygkDEQ3A/viewform" style = "color: lightblue;" target = "_blank">Give us feedback on the site</a></h2>
     </div>
   
     <router-link v-if="isSecondPage" to="/" class="back">
