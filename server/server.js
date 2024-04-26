@@ -1,3 +1,5 @@
+
+
 require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
@@ -6,6 +8,8 @@ const cron = require('node-cron');
 const Facility = require('./models/facility.js');
 const Rating = require('./models/rating.js');
 const getWeather = require('./weather.js');
+const askChatbot = require('./chatbot.js');
+const axios = require('axios');
 
 const app = express();
 const corsOptions = {
@@ -40,6 +44,74 @@ app.get('/weather', async (req, res) => {
     res.status(500).json({ message: "Error fetching weather data" });
   }
 });
+
+
+
+app.post('/chat', async (req, res) => {
+  try {
+      // Fetch weather data
+      const weatherData = await getWeather();
+      console.log(weatherData.precipitation);  // Log to verify structure
+
+// Start constructing the definitive statement based on weather data
+let question = "Should I go to the gym based on these factors. The temperature today is " + weatherData.temperature.toFixed(1) + "°F. ";
+
+if (weatherData.temperature <= 32) {
+    question += "It's freezing cold. It's definitely not a good day to go to the gym. Tell me not to go";
+} else if (weatherData.temperature <= 50) {
+  question += "It's quite chilly. Tell me maybe to skip the gym and stay warm.";
+} else if (weatherData.temperature > 90) {
+  question += "It's extremely hot. Avoid going to the gym in this heat, tell me to go outside for my workout.";
+} else {
+    // Now handle precipitation within a comfortable temperature range
+    if (weatherData.precipitation.includes("Thunderstorm")) {
+      question += "With thunderstorms expected, it's unsafe to go to the gym today.";
+    } else if (weatherData.precipitation.includes("Drizzle")) {
+      question += "It's drizzling. Tell me maybe to consider going to the gym, but be cautious.";
+    } else if (weatherData.precipitation.includes("Rain")) {
+      question += "It's raining. Not a good day for the gym. Tell me not to go.";
+    } else if (weatherData.precipitation.includes("Snow")) {
+      question += "It's snowy. A terrible day for any outdoor activity, including the gym.";
+    } else if (weatherData.precipitation.includes("Clear")) {
+      question += "The sky is clear Tell me it's a perfect day to go to the gym!";
+    } else if (weatherData.precipitation.includes("Clouds")) {
+      question += "It's just cloudy. A decent day for the gym. Tell me maybe to go.";
+    } else {
+      question += `The weather is showing ${weatherData.precipitation}. It's a suitable day for the gym unless conditions worsen.`;
+    }
+}
+
+// If the temperature is in the ideal range
+if (weatherData.temperature > 50 && weatherData.temperature <= 90) {
+  question += " Also, the temperature is perfect for a gym session today!";
+}
+
+
+
+      // Send request to OpenAI API
+      const response = await axios.post('https://api.openai.com/v1/chat/completions', {
+          model: "gpt-3.5-turbo",
+          messages: [{ role: "user", content: question }],
+      }, {
+          headers: {
+            'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+              'Content-Type': 'application/json'
+          }
+      });
+
+      // Extract bot response
+      const botMessage = response.data.choices[0].message.content;
+
+      // Send bot response to the client
+      res.json({ message: botMessage });
+  } catch (error) {
+      console.error("Error processing your request:", error);
+      res.status(500).send('Error processing your request');
+  }
+});
+
+
+
 
 
 app.post('/api/facilities', (req, res) => {
@@ -131,29 +203,6 @@ app.get('/api/ratings/average/weight-room2', async (req, res) => {
   }
 });
 
-app.get('/api/ratings/average/upper-courts', async (req, res) => {
-  try {
-    console.log("Fetching average rating for upper-courts");
-    const average = await updateAndResetAverageRating('659a0affc0d15d547c126925');
-    console.log(`Average rating for upper-courts: ${average}`);
-    res.json({ average });
-  } catch (error) {
-    console.error("Error fetching the average rating for upper-courts:", error);
-    res.status(500).json({ message: "Error fetching the average rating", error: error.toString() });
-  }
-});
-
-app.get('/api/ratings/average/lower-courts', async (req, res) => {
-  try {
-    console.log("Fetching average rating for lower-courts");
-    const average = await updateAndResetAverageRating('659b382f10a04f1ccc8f2e6b');
-    console.log(`Average rating for lower-courts: ${average}`);
-    res.json({ average });
-  } catch (error) {
-    console.error("Error fetching the average rating for lower-courts:", error);
-    res.status(500).json({ message: "Error fetching the average rating", error: error.toString() });
-  }
-});
 
 /*cron.schedule('* * * * *', async () => {
 
