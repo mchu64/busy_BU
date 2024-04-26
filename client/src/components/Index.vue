@@ -10,6 +10,9 @@
     <!-- Box Container Section -->
     <div class="box-container">
       <!-- Router Links -->
+          <!-- ChatBot Component -->
+    <ChatBot />
+  </div>
 
       <router-link v-if="isRootPage" to="/third-page" class="evaluate">
         <div>
@@ -35,14 +38,6 @@
       </router-link>
     </div>
 
-    <!-- Weather Box Section -->
-    <div class="gym-info-box" id="weather-container">
-      <!-- Weather data display -->
-    </div>
-
-    <!-- ChatBot Component -->
-    <ChatBot />
-  </div>
 </template>
 
 <script>
