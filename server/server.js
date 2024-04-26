@@ -1,5 +1,3 @@
-
-
 require('dotenv').config();
 const cors = require('cors');
 const express = require('express');
@@ -8,7 +6,6 @@ const cron = require('node-cron');
 const Facility = require('./models/facility.js');
 const Rating = require('./models/rating.js');
 const getWeather = require('./weather.js');
-const askChatbot = require('./chatbot.js');
 const axios = require('axios');
 
 const app = express();
@@ -54,7 +51,7 @@ app.post('/chat', async (req, res) => {
       console.log(weatherData.precipitation);  // Log to verify structure
 
 // Start constructing the definitive statement based on weather data
-let question = "Should I go to the gym based on these factors. The temperature today is " + weatherData.temperature.toFixed(1) + "°F. ";
+let question = "Should I go to the gym based on these factors. The temperature today is " + weatherData.temperature.toFixed(1) + "°F. Imagine in your response that my question is Should I go to the gym today so make sure the grammer makes sense";
 
 if (weatherData.temperature <= 32) {
     question += "It's freezing cold. It's definitely not a good day to go to the gym. Tell me not to go";
