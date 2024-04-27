@@ -3,7 +3,6 @@
     <div v-if="isFifthPage" class="header">
       <h1>Weight Room 2</h1>
       <h2>Below is how busy the weight rooms are.</h2>
-
     </div>
     <router-link v-if="isFifthPage" to="/" class="back">
       <div>Back</div>
@@ -11,17 +10,16 @@
     <div class="weightroombackground">
       <div v-if="isFifthPage" class="content1">
         <p>Average Rating: {{ averageRating }} out of 5</p>
-
-        <!-- Other content for the second page -->
+        <!-- Other content for the fifth page -->
       </div>
       <div class="legend-box">
-          <p>Legend:</p>
-          <p>1 = Not Busy</p>
-          <p>2 = Somewhat Busy</p>
-          <p>3 = Averagely Busy</p>
-          <p>4 = Pretty Busy</p>
-          <p>5 = Really Busy</p>
-        </div>
+        <p>Legend:</p>
+        <p>1 = Not Busy</p>
+        <p>2 = Somewhat Busy</p>
+        <p>3 = Averagely Busy</p>
+        <p>4 = Pretty Busy</p>
+        <p>5 = Really Busy</p>
+      </div>
       <div class="blur-background"></div>
       <router-view></router-view>
     </div>
@@ -44,7 +42,9 @@ export default {
     },
   },
   created() {
-    this.fetchAverageRating();
+    if (this.isFifthPage) {
+      this.fetchAverageRating();
+    }
   },
   methods: {
     fetchAverageRating() {
@@ -61,8 +61,7 @@ export default {
 };
 </script>
 
-
-<!--CSS Link-->
+<!-- CSS Link -->
 <style scoped>
 @import './Weightroom.css';
 </style>

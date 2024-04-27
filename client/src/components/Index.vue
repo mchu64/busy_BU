@@ -9,39 +9,36 @@
 
     <!-- Box Container Section -->
     <div class="box-container">
-      <!-- Router Links -->
-          <!-- ChatBot Component -->
-    <ChatBot />
-  </div>
+      <!-- ChatBot Component -->
+      <ChatBot v-if="isRootPage" />
 
-      <router-link v-if="isRootPage" to="/third-page" class="evaluate">
+      <!-- Router Links -->
+      <router-link to="/third-page" class="evaluate">
         <div>
           <h1>Rate Busyness</h1>
           <p>Please give us a rating on the population of the gym!</p>
         </div>
       </router-link>
 
-      <router-link v-if="isRootPage" to="/second-page" class="gym-info-box">
+      <router-link to="/second-page" class="gym-info-box">
         <div>
           <h1>Upper Weight Room</h1>
           <p>This is how you can check the busyness of the upper weight room!</p>
         </div>
       </router-link>
 
-      
-      <!-- Router Links -->
-      <router-link v-if="isRootPage" to="/fifth-page" class="gym-info-box">
+      <router-link to="/fifth-page" class="gym-info-box">
         <div>
           <h1>Lower Weight Room</h1>
           <p>This is how you can check the busyness of the bottom weight room!</p>
         </div>
       </router-link>
     </div>
-
+  </div>
 </template>
 
 <script>
-import axios from 'axios';
+   import axios from 'axios';
 import ChatBot from './ChatBot.vue';
 
 export default {
