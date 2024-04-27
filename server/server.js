@@ -50,33 +50,59 @@ app.post('/chat', async (req, res) => {
       const weatherData = await getWeather();
       console.log(weatherData.precipitation);  // Log to verify structure
 
-// Start constructing the definitive statement based on weather data
-let question = "Should I go to the gym based on these factors. The temperature today is " + weatherData.temperature.toFixed(1) + "°F. Imagine in your response that my question is Should I go to the gym today so make sure the grammer makes sense";
+      const database2 = await axios.get('https://enigmatic-bastion-78775-506d46995f63.herokuapp.com/api/ratings/average/weight-room2');
+      const database1 = await axios.get('https://enigmatic-bastion-78775-506d46995f63.herokuapp.com/api/ratings/average/weight-room1')
 
-if (weatherData.temperature <= 32) {
-    question += "It's freezing cold. It's definitely not a good day to go to the gym. Tell me not to go";
-} else if (weatherData.temperature <= 50) {
-  question += "It's quite chilly. Tell me maybe to skip the gym and stay warm.";
-} else if (weatherData.temperature > 90) {
-  question += "It's extremely hot. Avoid going to the gym in this heat, tell me to go outside for my workout.";
+      const average1 = database1.data.average;
+      const average2 = database2.data.average;
+      const totalAverage = (parseFloat(average1) + parseFloat(average2)) / 2;  
+
+      console.log('Average of the two averages:', totalAverage);
+
+// Start constructing the definitive statement based on weather data
+let question = "Should I go to the gym based on these factors. The temperature today is " + weatherData.temperature.toFixed(1) + "°F. Imagine in your response that my question is Should I go to the gym today so make sure the grammar makes sense";
+
+// Handle weather conditions and totalAverage rating
+if (totalAverage === 1) {
+  question += " The gym is not busy at all. It's the best time to go!";
+} else if (totalAverage === 2) {
+  question += " The gym is not very busy. It's recommended to go.";
+} else if (totalAverage >= 4) {
+  question += " The gym is very busy. It's recommended not to go.";
+} else if (totalAverage === 5) {
+  question += " The gym is extremely busy. It's best to avoid going at all.";
 } else {
-    // Now handle precipitation within a comfortable temperature range
+  // Handle weather conditions and precipitation within a comfortable temperature range
+  if (weatherData.temperature <= 32) {
+    question += " It's freezing cold. It's definitely not a good day to go to the gym. Tell me not to go";
+  } else if (weatherData.temperature <= 50) {
+    question += " It's quite chilly. Tell me maybe to skip the gym and stay warm.";
+  } else if (weatherData.temperature > 90) {
+    question += " It's extremely hot. Avoid going to the gym in this heat, tell me to go outside for my workout.";
+  } else {
     if (weatherData.precipitation.includes("Thunderstorm")) {
-      question += "With thunderstorms expected, it's unsafe to go to the gym today.";
+      question += " With thunderstorms expected, it's unsafe to go to the gym today.";
     } else if (weatherData.precipitation.includes("Drizzle")) {
-      question += "It's drizzling. Tell me maybe to consider going to the gym, but be cautious.";
+      question += " It's drizzling. Tell me maybe to consider going to the gym, but be cautious.";
     } else if (weatherData.precipitation.includes("Rain")) {
-      question += "It's raining. Not a good day for the gym. Tell me not to go.";
+      question += " It's raining. Not a good day for the gym. Tell me not to go.";
     } else if (weatherData.precipitation.includes("Snow")) {
-      question += "It's snowy. A terrible day for any outdoor activity, including the gym.";
+      question += " It's snowy. A terrible day for any outdoor activity, including the gym.";
     } else if (weatherData.precipitation.includes("Clear")) {
-      question += "The sky is clear Tell me it's a perfect day to go to the gym!";
+      question += " The sky is clear. Tell me it's a perfect day to go to the gym!";
     } else if (weatherData.precipitation.includes("Clouds")) {
-      question += "It's just cloudy. A decent day for the gym. Tell me maybe to go.";
+      question += " It's just cloudy. A decent day for the gym. Tell me maybe to go.";
     } else {
-      question += `The weather is showing ${weatherData.precipitation}. It's a suitable day for the gym unless conditions worsen.`;
+      question += ` The weather is showing ${weatherData.precipitation}. It's a suitable day for the gym unless conditions worsen.`;
     }
+
+    // If the temperature is in the ideal range
+    if (weatherData.temperature > 50 && weatherData.temperature <= 90) {
+      question += " Also, the temperature is perfect for a gym session today!";
+    }
+  }
 }
+
 
 // If the temperature is in the ideal range
 if (weatherData.temperature > 50 && weatherData.temperature <= 90) {
