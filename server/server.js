@@ -59,7 +59,7 @@ app.post('/chat', async (req, res) => {
 
       console.log('Average of the two averages:', totalAverage);
 
-let question = "Should I go to the gym based on these factors. The temperature today is " + weatherData.temperature.toFixed(1) + "°F. Imagine in your response that my question is Should I go to the gym today so make sure the grammar makes sense, you must include the temperature and percipitation in your response.";
+let question = "Should I go to the gym. Take into account that the temperature today is " + weatherData.temperature.toFixed(1) + "°F. Imagine in your response that my question is Should I go to the gym today so make sure the grammar makes sense, you must include the temperature and percipitation in your response.";
 
 if (totalAverage === 1) {
   question += " The gym is not busy at all. It's the best time to go!";
