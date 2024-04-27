@@ -59,10 +59,8 @@ app.post('/chat', async (req, res) => {
 
       console.log('Average of the two averages:', totalAverage);
 
-// Start constructing the definitive statement based on weather data
-let question = "Should I go to the gym based on these factors. The temperature today is " + weatherData.temperature.toFixed(1) + "°F. Imagine in your response that my question is Should I go to the gym today so make sure the grammar makes sense";
+let question = "Should I go to the gym based on these factors. The temperature today is " + weatherData.temperature.toFixed(1) + "°F. Imagine in your response that my question is Should I go to the gym today so make sure the grammar makes sense, you must include the temperature and percipitation in your response.";
 
-// Handle weather conditions and totalAverage rating
 if (totalAverage === 1) {
   question += " The gym is not busy at all. It's the best time to go!";
 } else if (totalAverage === 2) {
@@ -72,7 +70,7 @@ if (totalAverage === 1) {
 } else if (totalAverage === 5) {
   question += " The gym is extremely busy. It's best to avoid going at all.";
 } else {
-  // Handle weather conditions and precipitation within a comfortable temperature range
+
   if (weatherData.temperature <= 32) {
     question += " It's freezing cold. It's definitely not a good day to go to the gym. Tell me not to go";
   } else if (weatherData.temperature <= 50) {
@@ -96,20 +94,12 @@ if (totalAverage === 1) {
       question += ` The weather is showing ${weatherData.precipitation}. It's a suitable day for the gym unless conditions worsen.`;
     }
 
-    // If the temperature is in the ideal range
+
     if (weatherData.temperature > 50 && weatherData.temperature <= 90) {
       question += " Also, the temperature is perfect for a gym session today!";
     }
   }
 }
-
-
-// If the temperature is in the ideal range
-if (weatherData.temperature > 50 && weatherData.temperature <= 90) {
-  question += " Also, the temperature is perfect for a gym session today!";
-}
-
-
 
       // Send request to OpenAI API
       const response = await axios.post('https://api.openai.com/v1/chat/completions', {
