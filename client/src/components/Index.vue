@@ -34,12 +34,20 @@
         </div>
       </router-link>
     </div>
+
+    <!-- Google OAuth Button -->
+    <div>
+      <button @click="handleGoogle" class="mx-auto border-4 bg-green-500">Sign In With Google</button>
+    </div>
   </div>
 </template>
 
 <script>
    import axios from 'axios';
 import ChatBot from './ChatBot.vue';
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { auth } from '../../firebase/firebaseConfig';
+
 
 export default {
   name: 'App',
@@ -70,6 +78,16 @@ export default {
         console.error("Error processing your request:", error);
         this.botResponse = 'Error processing your request';
       }
+    },
+    async handleGoogle() {
+      try {
+        const provider = new GoogleAuthProvider();
+        await signInWithPopup(auth, provider);
+        // Handle successful sign-in
+      } catch (error) {
+        console.error("Error signing in with Google:", error);
+        // Handle sign-in error
+      }
     }
   },
   mounted() {
@@ -85,6 +103,8 @@ export default {
   },
 };
 </script>
+
+
 
 <style scoped>
 @import './Index.css';
