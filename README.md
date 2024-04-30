@@ -1,4 +1,4 @@
-Clone this repo first
+Clone this repo first, on main branch
 
 Frontend:
 
