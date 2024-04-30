@@ -1,12 +1,12 @@
 
 Project Description:
 
-Our project is a web application tracking the busyness of Fit Rec at BU, using methods like anonymous foot tracking APIs and user feedback. The tech stack includes MongoDB, Node.js, React, and Express. Live data will be stored and retrieved from the database, displayed on the web app with a 1-5 rating system indicating gym busyness (5 being the busiest).
+Our project is a web application tracking the busyness of Fit Rec at BU, using user feedback to guage how busy the gym is. The tech stack includes MongoDB, Node.js, vue.js, and Express. Live data will be stored and retrieved from the database, displayed on the web app with a 1-5 rating system indicating gym busyness (5 being the busiest). We then use our two APIs Openweather and Openai to form a chatbot that will advise you on if going to gym is a good decision or not today.
 
 Product Requirements:
 
 Goal:
-Develop a user-friendly web interface for real-time business monitoring and analysis at FitRec, BU.
+Develop a user-friendly web interface for real-time business monitoring and analysis at FitRec, BU that also utilizes a chatbot.
 
 Non-Goal:
 Implementing a mobile application for busyness tracking.
@@ -15,13 +15,13 @@ Non-functional Requirement 1: Privacy
 
 Functional Requirements:
 i. Ensure anonymized user data without personally identifiable information.
-ii. Provide users an opt-out option for the foot tracking system due to privacy concerns.
+ii. Allow oauth for more secure user logging.
 iii. Emphasize accurate estimates of gym busyness.
 
 Non-functional Requirement 2: Performance
 
 Functional Requirements:
-i. Process real-time updates within a 5-second latency with over 80% accuracy.
+i. Chatbot must be accurate in temperature and responses
 ii. Optimize for handling up to 500 simultaneous user connections without significant performance degradation.
 
 ---
@@ -35,18 +35,18 @@ Epic: Gym Busyness Tracker
 
 User Story 1: As a fitness enthusiast, I want to effortlessly check how busy Fit Rec is in real-time.
 
-- Task 1: Develop an accurate way of tracking.
-  - Ticket 1: Ensure the foot tracking API is being used correctly giving us the most accurate readings.
-  - Ticket 2: Implement other methods of tracking such as user feedback for people currently at the FitRec.
+- Task 1: Develop an accurate chatbot response.
+  - Ticket 1: Ensure the user feedback is working and accurate.
+  - Ticket 2: Make sure the temperature api is accurate
 
-User Story 2: As a swimmer and rock climber, I want to track those parts of the gym specifically
+User Story 2: With such a large gym, I want to track those parts of the gym specifically
 
 - Task 1: Enable specific FitRec area tracking
   - Ticket 1: Design a suitable database structure for storing each gym area
-  - Ticket 2: Implement a Database Access Object (DAO) for efficient interaction with the database
+  - Ticket 2: Implement a usable database for storing these values
 
 User Story 3: As a privacy-conscious user, I want control over my data and the option to opt-out of certain tracking features.
 
 - Task 1: Ensure privacy in data collection.  
-- Ticket 1: Anonymize all user data, avoiding storage of personally identifiable information. 
- - Ticket 2: Provide users with an opt-out option from the foot tracking system for privacy concerns.
+- Ticket 1: Anonymize all user data, avoiding storage of personally identifiable information with oauth. 
+ - Ticket 2: Provide users with the option of just using the chatbot and not user rating.
