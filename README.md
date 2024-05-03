@@ -41,5 +41,5 @@ npm start
 ```
 The backend server should now be running and accessible, typically on `http://localhost:3000`.
 
-ALPHA - VIDEO = https://drive.google.com/drive/folders/1lGHkHsCXG2u5G0nBifnp8TTYRP6hq9bO?usp=sharing
+Videos (alpha and final) = https://drive.google.com/drive/folders/1lGHkHsCXG2u5G0nBifnp8TTYRP6hq9bO?usp=sharing
 
