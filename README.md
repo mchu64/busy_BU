@@ -1,33 +1,45 @@
-<<<<<<< HEAD
-Frontend (working):
-=======
-Clone this repo first, on main branch
 
-Frontend:
->>>>>>> 4418e278f84b976550b35f863e607f6fe5fa7c2b
+# Project Title: BU-Busy Showcase
 
-1. cd client
-2. npm install
-3. npm run serve
+Welcome to the BU-Busy Showcase project! This repository contains the necessary code for both the frontend and backend of our application. Follow the setup instructions below to get started with development.
 
-<<<<<<< HEAD
+## Prerequisites
+Before you begin, ensure you have npm installed on your machine. If not, you can download and install npm from [Node.js official website](https://nodejs.org/).
 
+## Getting Started
 
-Backend (not working, but very close):
-1. cd server
-2. npm install
-3. setup env, not sure if I am supposed to include it in here for security reasons
-4. npm start
+### Cloning the Repository
+To get started with the project, first clone the repository to your local machine:
+```bash
+git clone <repository-url>
+```
 
-BU-Busy Showcase
-1. https://drive.google.com/drive/folders/1lGHkHsCXG2u5G0nBifnp8TTYRP6hq9bO?usp=sharings
-=======
-Backend:
-1. cd server
-2. npm install
-3. setup dotenv if you have access to api keys
-4. npm run start
+### Frontend Setup
+Navigate to the `client` directory and install the necessary dependencies:
+```bash
+cd client
+npm install
+```
+To start the development server:
+```bash
+npm run serve
+```
+The frontend should now be accessible at `http://localhost:8080'
 
-BU-Busy Showcase
-1. Alpha = https://drive.google.com/drive/folders/1lGHkHsCXG2u5G0nBifnp8TTYRP6hq9bO?usp=sharings
->>>>>>> 4418e278f84b976550b35f863e607f6fe5fa7c2b
+### Backend Setup
+Navigate to the `server` directory and install the necessary dependencies:
+```bash
+cd server
+npm install
+```
+
+If you want to start the backend, make sure the .env file is setup
+
+To start the server:
+```bash
+npm start
+```
+The backend server should now be running and accessible, typically on `http://localhost:3000`.
+
+ALPHA - VIDEO = https://drive.google.com/drive/folders/1lGHkHsCXG2u5G0nBifnp8TTYRP6hq9bO?usp=sharing
+
