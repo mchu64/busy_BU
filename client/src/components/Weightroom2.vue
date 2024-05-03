@@ -9,16 +9,8 @@
     </router-link>
     <div class="weightroombackground">
       <div v-if="isFifthPage" class="content1">
-        <p>Average Rating: {{ averageRating }} out of 5</p>
-        <!-- Other content for the fifth page -->
-      </div>
-      <div class="legend-box">
-        <p>Legend:</p>
-        <p>1 = Not Busy</p>
-        <p>2 = Somewhat Busy</p>
-        <p>3 = Averagely Busy</p>
-        <p>4 = Pretty Busy</p>
-        <p>5 = Really Busy</p>
+        <p>Average Weight room Rating: {{ averageRating }}</p>
+        <!-- Other content for the second page -->
       </div>
       <div class="blur-background"></div>
       <router-view></router-view>
@@ -42,13 +34,11 @@ export default {
     },
   },
   created() {
-    if (this.isFifthPage) {
-      this.fetchAverageRating();
-    }
+    this.fetchAverageRating();
   },
   methods: {
     fetchAverageRating() {
-      axios.get('https://enigmatic-bastion-78775-506d46995f63.herokuapp.com/api/ratings/average/weight-room2')
+      axios.get('http://localhost:3000/api/ratings/average/weight-room2')
         .then(response => {
           console.log('Average rating response:', response.data); // Debugging line
           this.averageRating = response.data.average;
@@ -61,7 +51,8 @@ export default {
 };
 </script>
 
-<!-- CSS Link -->
+
+<!--CSS Link-->
 <style scoped>
 @import './Weightroom.css';
 </style>

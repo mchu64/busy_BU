@@ -4,27 +4,14 @@
       <h1>Weight Room</h1>
       <h2>Below is how busy the weight rooms are.</h2>
     </div>
-  
     <router-link v-if="isSecondPage" to="/" class="back">
       <div>Back</div>
     </router-link>
     <div class="weightroombackground">
       <div v-if="isSecondPage" class="content1">
-        <p>Average Rating: {{ averageRating }} out of 5</p>
-
-      </div>
-        <div class="legend-box">
-          <p>Legend:</p>
-          <p>1 = Not Busy</p>
-          <p>2 = Somewhat Busy</p>
-          <p>3 = Averagely Busy</p>
-          <p>4 = Pretty Busy</p>
-          <p>5 = Really Busy</p>
-        </div>
-        
-          
+        <p>Average Weight room Rating: {{ averageRating }}</p>
         <!-- Other content for the second page -->
-      
+      </div>
       <div class="blur-background"></div>
       <router-view></router-view>
     </div>
@@ -51,17 +38,15 @@ export default {
   },
   methods: {
     fetchAverageRating() {
-  axios.get('https://enigmatic-bastion-78775-506d46995f63.herokuapp.com/api/ratings/average/weight-room1', {
-    timeout: 5000
-  })
-    .then(response => {
-        console.log('Average rating response:', response.data); // Debugging line
-        this.averageRating = response.data.average;
-      })
-      .catch(error => {
-        console.error('Error fetching the average rating:', error);
-      });
-},
+      axios.get('http://localhost:3000/api/ratings/average/weight-room1')
+        .then(response => {
+          console.log('Average rating response:', response.data); // Debugging line
+          this.averageRating = response.data.average;
+        })
+        .catch(error => {
+          console.error('Error fetching the average rating:', error);
+        });
+    },
   },
 };
 </script>
