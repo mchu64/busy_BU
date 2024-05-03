@@ -1,5 +1,5 @@
 
-# Project Title: BU-Busy Showcase
+# Project Title: BU-Busy
 
 Welcome to the BU-Busy Showcase project! This repository contains the necessary code for both the frontend and backend of our application. Follow the setup instructions below to get started with development.
 
@@ -39,7 +39,7 @@ To start the server:
 ```bash
 npm start
 ```
-The backend server should now be running and accessible, typically on `http://localhost:3000`.
+The backend server should now be running and accessible, on `http://localhost:3000`.
 
 Videos (alpha and final) = https://drive.google.com/drive/folders/1lGHkHsCXG2u5G0nBifnp8TTYRP6hq9bO?usp=sharing
 
