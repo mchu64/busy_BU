@@ -10,8 +10,11 @@
 
                     <!-- Google OAuth Button -->
                     <div v-if="!isSignedIn">
-        <button @click="handleGoogle" class="mx-auto border-4 bg-green-500">Sign In With Google</button>
-      </div>
+                      <button @click="handleGoogle" class="mx-auto border-4 bg-green-500 rounded-lg p-2">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google Logo" class="mr-2" />
+                        <span class="text-white">Sign In With Google</span>
+                      </button>
+                    </div>
 
       </div>
 
